@@ -18,7 +18,7 @@ class ScratchLottery {
 
     constructor() {
         this.canvas = document.getElementById('scratchCanvas') as HTMLCanvasElement;
-        this.ctx = this.canvas.getContext('2d')!;
+        this.ctx = this.canvas.getContext('2d', { alpha: true })!;
         this.resetButton = document.getElementById('resetButton') as HTMLButtonElement;
         
         this.initializeEventListeners();
@@ -34,6 +34,10 @@ class ScratchLottery {
     }
 
     private initScratchArea(): void {
+        // Clear the canvas first
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        // Fill with gray background
         this.ctx.fillStyle = '#e0e0e0';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
@@ -50,9 +54,11 @@ class ScratchLottery {
 
     private getCoordinates(e: MouseEvent | Touch): Coordinates {
         const rect = this.canvas.getBoundingClientRect();
+        const scaleX = this.canvas.width / rect.width;
+        const scaleY = this.canvas.height / rect.height;
         return {
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top
+            x: (e.clientX - rect.left) * scaleX,
+            y: (e.clientY - rect.top) * scaleY
         };
     }
 
@@ -61,6 +67,7 @@ class ScratchLottery {
         const coords = this.getCoordinates(e);
         this.lastX = coords.x;
         this.lastY = coords.y;
+        this.draw(e); // Draw a dot when starting
     }
 
     private draw(e: MouseEvent | Touch): void {
@@ -68,14 +75,26 @@ class ScratchLottery {
         
         const coords = this.getCoordinates(e);
         
+        // Draw a circle at the current position
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(coords.x, coords.y, 40, 0, Math.PI * 2);
+        this.ctx.globalCompositeOperation = 'destination-out';
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+        this.ctx.fill();
+        this.ctx.restore();
+        
+        // Draw a line between points for smoothness
+        this.ctx.save();
         this.ctx.beginPath();
         this.ctx.moveTo(this.lastX, this.lastY);
         this.ctx.lineTo(coords.x, coords.y);
-        this.ctx.strokeStyle = '#ffffff';
-        this.ctx.lineWidth = 20;
+        this.ctx.lineWidth = 80;
         this.ctx.lineCap = 'round';
         this.ctx.lineJoin = 'round';
+        this.ctx.globalCompositeOperation = 'destination-out';
         this.ctx.stroke();
+        this.ctx.restore();
         
         this.lastX = coords.x;
         this.lastY = coords.y;

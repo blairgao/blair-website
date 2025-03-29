@@ -70,9 +70,23 @@ tasks.register<com.github.gradle.node.npm.task.NpmTask>("npmCopyAssets") {
 tasks.register<Copy>("copyFrontendAssets") {
     group = "build"
     description = "Copies frontend assets to the static resources directory"
-    from("frontend/dist")
+    
     into("src/main/resources/static")
+    
+    from("frontend/dist/ts") {
+        into("ts")
+    }
+    
+    from("frontend/dist/css") {
+        into("css")
+    }
+    
     dependsOn("npmCopyAssets")
+    
+    doLast {
+        // Clean up the dist folder after copying
+        delete("frontend/dist")
+    }
 }
 
 tasks.named("processResources") {

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Frontend for the scratch lottery game",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean && tsc",
     "watch": "tsc -w",
     "clean": "rimraf dist",
     "copy-assets": "copyfiles -u 1 src/**/*.{css,html} dist/"
