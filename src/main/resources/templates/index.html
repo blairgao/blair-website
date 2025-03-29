@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch Lottery</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Scratch Lottery</h1>
+            <p>Scratch to reveal your prize!</p>
+        </div>
+    </header>
+    <main class="container">
+        <div class="content">
+            <div class="lottery-ticket">
+                <div class="scratch-area">
+                    <div class="prize-content">
+                        <h2 th:text="${prize.message}">🎉 Congratulations! You've won the grand prize! 🎉</h2>
+                        <p>You've won: <span class="prize" th:text="${prize.amount}">$1,000,000</span></p>
+                    </div>
+                    <canvas id="scratchCanvas"></canvas>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="resetButton">Reset Scratch Card</button>
+            </div>
+        </div>
+    </main>
+    <script th:src="@{/js/scratch.js}"></script>
+</body>
+</html> 

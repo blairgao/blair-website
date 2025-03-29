@@ -1,0 +1,19 @@
+{
+  "name": "scratch-lottery-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for the scratch lottery game",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "clean": "rimraf dist",
+    "copy-assets": "copyfiles -u 1 src/**/*.{css,html} dist/"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "install": "^0.13.0"
+  }
+}
