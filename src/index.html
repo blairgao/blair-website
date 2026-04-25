@@ -3,23 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>:)</title>
+    <title>Sat Dinner Menu</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 16px;
+            display: grid;
+            place-items: center;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f4f1eb;
         }
-        .smiley {
-            font-size: 10rem;
+
+        .menu-frame {
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .menu-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+            background: #fff;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 28px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="smiley">:)</div>
+    <main class="menu-frame">
+        <img
+            class="menu-image"
+            src="./dinner_menu.png"
+            alt="Saturday dinner menu with watercolor style dishes"
+            loading="eager"
+        >
+    </main>
 </body>
 </html> 
